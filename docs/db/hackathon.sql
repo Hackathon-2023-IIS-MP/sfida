@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql:3306
--- Creato il: Dic 22, 2023 alle 21:37
+-- Creato il: Dic 22, 2023 alle 21:47
 -- Versione del server: 5.7.44
 -- Versione PHP: 8.2.8
 
@@ -56,7 +56,7 @@ CREATE TABLE `aziende` (
 CREATE TABLE `citta` (
   `id` bigint(20) NOT NULL,
   `nome` varchar(50) NOT NULL,
-  `provincia_id` bigint(20) NOT NULL
+  `provincia_sigla` char(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -145,8 +145,8 @@ CREATE TABLE `proporre` (
 --
 
 CREATE TABLE `province` (
-  `id` bigint(20) NOT NULL,
-  `nome` varchar(50) NOT NULL
+  `nome` varchar(50) NOT NULL,
+  `sigla` char(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -212,7 +212,7 @@ ALTER TABLE `aziende`
 --
 ALTER TABLE `citta`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `paese_id` (`provincia_id`);
+  ADD KEY `paese_id` (`provincia_sigla`);
 
 --
 -- Indici per le tabelle `discipline`
@@ -265,7 +265,7 @@ ALTER TABLE `proporre`
 -- Indici per le tabelle `province`
 --
 ALTER TABLE `province`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`sigla`);
 
 --
 -- Indici per le tabelle `riguardare`
@@ -319,12 +319,6 @@ ALTER TABLE `istituti`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT per la tabella `province`
---
-ALTER TABLE `province`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
-
---
 -- Limiti per le tabelle scaricate
 --
 
@@ -334,12 +328,6 @@ ALTER TABLE `province`
 ALTER TABLE `appassionare`
   ADD CONSTRAINT `disciplina_id` FOREIGN KEY (`disciplina_id`) REFERENCES `discipline` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `utente_email` FOREIGN KEY (`utente_email`) REFERENCES `utenti` (`email`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Limiti per la tabella `citta`
---
-ALTER TABLE `citta`
-  ADD CONSTRAINT `paese_id` FOREIGN KEY (`provincia_id`) REFERENCES `province` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limiti per la tabella `insegnare`
