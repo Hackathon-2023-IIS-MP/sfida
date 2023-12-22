@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql:3306
--- Creato il: Dic 22, 2023 alle 20:23
+-- Creato il: Dic 22, 2023 alle 21:37
 -- Versione del server: 5.7.44
 -- Versione PHP: 8.2.8
 
@@ -56,7 +56,7 @@ CREATE TABLE `aziende` (
 CREATE TABLE `citta` (
   `id` bigint(20) NOT NULL,
   `nome` varchar(50) NOT NULL,
-  `paese_id` bigint(20) NOT NULL
+  `provincia_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -68,6 +68,17 @@ CREATE TABLE `citta` (
 CREATE TABLE `discipline` (
   `id` bigint(20) NOT NULL,
   `nome` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `insegnare`
+--
+
+CREATE TABLE `insegnare` (
+  `utente_email` varchar(50) NOT NULL,
+  `istituto_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -91,17 +102,6 @@ CREATE TABLE `lavorare` (
   `azienda_id` bigint(20) NOT NULL,
   `utente_email` varchar(50) NOT NULL,
   `dirigente` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Struttura della tabella `paesi`
---
-
-CREATE TABLE `paesi` (
-  `id` bigint(20) NOT NULL,
-  `nome` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -141,6 +141,17 @@ CREATE TABLE `proporre` (
 -- --------------------------------------------------------
 
 --
+-- Struttura della tabella `province`
+--
+
+CREATE TABLE `province` (
+  `id` bigint(20) NOT NULL,
+  `nome` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Struttura della tabella `riguardare`
 --
 
@@ -152,11 +163,23 @@ CREATE TABLE `riguardare` (
 -- --------------------------------------------------------
 
 --
+-- Struttura della tabella `trattare`
+--
+
+CREATE TABLE `trattare` (
+  `istituto_id` bigint(20) NOT NULL,
+  `disciplina_id` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Struttura della tabella `utenti`
 --
 
 CREATE TABLE `utenti` (
   `email` varchar(50) NOT NULL,
+  `password` char(128) NOT NULL,
   `numero_telefono` varchar(17) NOT NULL,
   `username` varchar(50) NOT NULL,
   `nome` varchar(50) NOT NULL,
@@ -189,13 +212,20 @@ ALTER TABLE `aziende`
 --
 ALTER TABLE `citta`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `paese_id` (`paese_id`);
+  ADD KEY `paese_id` (`provincia_id`);
 
 --
 -- Indici per le tabelle `discipline`
 --
 ALTER TABLE `discipline`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indici per le tabelle `insegnare`
+--
+ALTER TABLE `insegnare`
+  ADD PRIMARY KEY (`utente_email`,`istituto_id`),
+  ADD KEY `istituto_id_3` (`istituto_id`);
 
 --
 -- Indici per le tabelle `istituti`
@@ -209,12 +239,6 @@ ALTER TABLE `istituti`
 ALTER TABLE `lavorare`
   ADD PRIMARY KEY (`azienda_id`,`utente_email`),
   ADD KEY `utente_email_2` (`utente_email`);
-
---
--- Indici per le tabelle `paesi`
---
-ALTER TABLE `paesi`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indici per le tabelle `partecipare`
@@ -238,11 +262,24 @@ ALTER TABLE `proporre`
   ADD KEY `progetto_id_2` (`progetto_id`);
 
 --
+-- Indici per le tabelle `province`
+--
+ALTER TABLE `province`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indici per le tabelle `riguardare`
 --
 ALTER TABLE `riguardare`
   ADD PRIMARY KEY (`disciplina_id`,`progetto_id`),
   ADD KEY `progetto_id_3` (`progetto_id`);
+
+--
+-- Indici per le tabelle `trattare`
+--
+ALTER TABLE `trattare`
+  ADD PRIMARY KEY (`istituto_id`,`disciplina_id`),
+  ADD KEY `discipline_id_3` (`disciplina_id`);
 
 --
 -- Indici per le tabelle `utenti`
@@ -282,9 +319,9 @@ ALTER TABLE `istituti`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT per la tabella `paesi`
+-- AUTO_INCREMENT per la tabella `province`
 --
-ALTER TABLE `paesi`
+ALTER TABLE `province`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
@@ -302,7 +339,14 @@ ALTER TABLE `appassionare`
 -- Limiti per la tabella `citta`
 --
 ALTER TABLE `citta`
-  ADD CONSTRAINT `paese_id` FOREIGN KEY (`paese_id`) REFERENCES `paesi` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `paese_id` FOREIGN KEY (`provincia_id`) REFERENCES `province` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Limiti per la tabella `insegnare`
+--
+ALTER TABLE `insegnare`
+  ADD CONSTRAINT `istituto_id_3` FOREIGN KEY (`istituto_id`) REFERENCES `istituti` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `utente_email_5` FOREIGN KEY (`utente_email`) REFERENCES `utenti` (`email`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limiti per la tabella `lavorare`
@@ -332,6 +376,13 @@ ALTER TABLE `proporre`
 ALTER TABLE `riguardare`
   ADD CONSTRAINT `disciplina_id_2` FOREIGN KEY (`disciplina_id`) REFERENCES `discipline` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `progetto_id_3` FOREIGN KEY (`progetto_id`) REFERENCES `progetti` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Limiti per la tabella `trattare`
+--
+ALTER TABLE `trattare`
+  ADD CONSTRAINT `discipline_id_3` FOREIGN KEY (`disciplina_id`) REFERENCES `discipline` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `istituto_id_2` FOREIGN KEY (`istituto_id`) REFERENCES `istituti` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limiti per la tabella `utenti`
