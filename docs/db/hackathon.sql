@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql:3306
--- Creato il: Dic 22, 2023 alle 21:47
+-- Creato il: Dic 22, 2023 alle 22:07
 -- Versione del server: 5.7.44
 -- Versione PHP: 8.2.8
 
@@ -102,6 +102,19 @@ CREATE TABLE `lavorare` (
   `azienda_id` bigint(20) NOT NULL,
   `utente_email` varchar(50) NOT NULL,
   `dirigente` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `messaggiare`
+--
+
+CREATE TABLE `messaggiare` (
+  `id` bigint(20) NOT NULL,
+  `progetto_id` bigint(20) NOT NULL,
+  `utente_email` varchar(50) NOT NULL,
+  `messaggio` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -241,6 +254,14 @@ ALTER TABLE `lavorare`
   ADD KEY `utente_email_2` (`utente_email`);
 
 --
+-- Indici per le tabelle `messaggiare`
+--
+ALTER TABLE `messaggiare`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `progetto_id_4` (`progetto_id`),
+  ADD KEY `utente_email_6` (`utente_email`);
+
+--
 -- Indici per le tabelle `partecipare`
 --
 ALTER TABLE `partecipare`
@@ -319,6 +340,12 @@ ALTER TABLE `istituti`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT per la tabella `messaggiare`
+--
+ALTER TABLE `messaggiare`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
 -- Limiti per le tabelle scaricate
 --
 
@@ -342,6 +369,13 @@ ALTER TABLE `insegnare`
 ALTER TABLE `lavorare`
   ADD CONSTRAINT `azienda_id` FOREIGN KEY (`azienda_id`) REFERENCES `aziende` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `utente_email_2` FOREIGN KEY (`utente_email`) REFERENCES `utenti` (`email`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Limiti per la tabella `messaggiare`
+--
+ALTER TABLE `messaggiare`
+  ADD CONSTRAINT `progetto_id_4` FOREIGN KEY (`progetto_id`) REFERENCES `progetti` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `utente_email_6` FOREIGN KEY (`utente_email`) REFERENCES `utenti` (`email`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limiti per la tabella `partecipare`
