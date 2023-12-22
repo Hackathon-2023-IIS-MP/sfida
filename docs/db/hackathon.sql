@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql:3306
--- Creato il: Dic 22, 2023 alle 19:38
+-- Creato il: Dic 22, 2023 alle 20:23
 -- Versione del server: 5.7.44
 -- Versione PHP: 8.2.8
 
@@ -163,7 +163,8 @@ CREATE TABLE `utenti` (
   `cognome` varchar(50) NOT NULL,
   `genere` char(1) NOT NULL,
   `data_nas` date NOT NULL,
-  `citta_nas` bigint(20) NOT NULL
+  `citta_residenza` bigint(20) NOT NULL,
+  `istituto_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -248,7 +249,9 @@ ALTER TABLE `riguardare`
 --
 ALTER TABLE `utenti`
   ADD PRIMARY KEY (`email`),
-  ADD UNIQUE KEY `username` (`username`);
+  ADD UNIQUE KEY `username` (`username`),
+  ADD KEY `citta_residenza` (`citta_residenza`),
+  ADD KEY `istituto_id` (`istituto_id`);
 
 --
 -- AUTO_INCREMENT per le tabelle scaricate
@@ -329,6 +332,13 @@ ALTER TABLE `proporre`
 ALTER TABLE `riguardare`
   ADD CONSTRAINT `disciplina_id_2` FOREIGN KEY (`disciplina_id`) REFERENCES `discipline` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `progetto_id_3` FOREIGN KEY (`progetto_id`) REFERENCES `progetti` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Limiti per la tabella `utenti`
+--
+ALTER TABLE `utenti`
+  ADD CONSTRAINT `citta_residenza` FOREIGN KEY (`citta_residenza`) REFERENCES `citta` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `istituto_id` FOREIGN KEY (`istituto_id`) REFERENCES `istituti` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
