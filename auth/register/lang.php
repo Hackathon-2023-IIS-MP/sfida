@@ -46,14 +46,19 @@ $genreLabel_other = array(
     'it' => 'Altro'
 );
 
+$phoneLabel = array(
+    'en' => 'Phone number',
+    'it' => 'Numero di telefono'
+);
+
 $cityLabel = array(
     'en' => 'City',
     'it' => 'Città'
 );
 
-$countryLabel = array(
-    'en' => 'Country',
-    'it' => 'Paese'
+$provinceLabel = array(
+    'en' => 'province',
+    'it' => 'Provincia'
 );
 
 $passwordLabel = array(
@@ -72,12 +77,19 @@ $registerBtn = array(
     'it' => 'Registrati'
 );
 
+$instituteLabel = array(
+    'en' => 'Institute',
+    'it' => 'Istituto'
+);
+
 $otherwise1 = array(
     'en' => 'Already own an account?',
-    'it' => 'Possiedi già un account?'
+    'it' => 'Hai già un account?'
 );
 
 $otherwise2 = array(
     'en' => 'Login',
     'it' => 'Accedi'
 );
+
+?>

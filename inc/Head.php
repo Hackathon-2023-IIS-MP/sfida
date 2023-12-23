@@ -6,6 +6,8 @@
 <link rel="shortcut icon" href="https://www.iismarconipieralisi.edu.it/templates/italiapa/favicon.ico" type="image/x-icon">
 <title>IIS Marconi Pieralisi</title>
 
+<!-- Ajax -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <!-- Bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
