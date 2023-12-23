@@ -4,17 +4,47 @@
 <head>
     <?php include $root . '/inc/Head.php'; ?>
 </head>
-<body class="d-flex flex-column vh-100">
+<body class="d-flex flex-column vh-100 bg-body-tertiary">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-body-secondary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.php">bynd</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link" href="#">Su di noi</a>
+                    <a class="nav-link" href="#">Scopri</a>
+                </div>
+            </div>
+        </div>
+    </nav>
 
     <!-- Content div -->
-    <div class="mb-auto mt-5 ms-3 ms-lg-5 pt-4">
+    <div id="home-jumbotron" class="p-5 text-center bg-body-secondary">
+        <div class="container py-5">
+            <h1 class="text-body-emphasis"><b>Inserire motto</b></h1>
+            <p class="col-lg-8 mx-auto lead">
+                Breve testo introduttivo per <b>motivare l'utente ad iscriversi</b>.
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua.
+            </p>
+            <div class="d-inline-flex gap-2 mb-5">
+                <a class="d-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill" href="/auth/register/">
+                    Registrati ora
+                </a>
+                <a class="btn btn-outline-secondary btn-lg px-4 rounded-pill" href="#">
+                    ...o scopri di più
+                </a>
+            </div>
+        </div>
+    </div>
 
+    <div class="container my-5">
         <!-- CONTENT GOES HERE -->
-        <h1 class="text-center mb-5">Main page</h1>
-
-        <p class="text-justify">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </p>
+        
 
         <?php
             if (isset($_COOKIE["email"]))
