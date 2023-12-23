@@ -60,7 +60,7 @@ include_once $root . "/class/DB/ClsIstituto.php";
                     <!-- Provincia -->
                     <div class="form-group col-md-6 mt-2">
                         <label for="formInput_provincia" class="required"><?php echo getTranslation($provinceLabel) ?></label>
-                        <select name="formInput_provincia" id="provincia" class="form-select" aria-label="Default select example">
+                        <select name="formInput_provincia" id="provincia" class="form-select" aria-label="Default select example" required>
                             <option selected disabled><?php echo getTranslation($label_unselected) ?></option>
                             <?php 
                                 foreach ( ClsProvinciaDB::getList() as $provincia) {
@@ -72,18 +72,18 @@ include_once $root . "/class/DB/ClsIstituto.php";
                     <!-- Città -->
                     <div class="form-group col-md-6 mt-2">
                         <label for="formInput_citta" class="required"><?php echo getTranslation($cityLabel) ?></label>
-                        <select id="citta" name="formInput_citta" class="form-select" aria-label="Default select example">
+                        <select id="citta" name="formInput_citta" class="form-select" aria-label="Default select example" required>
                             <option selected disabled><?php echo getTranslation($label_unselected) ?></option>
-                            <!------ POPOLA DA AJAX ------>
+                            <!------ POPOLATA DA AJAX ------>
                         </select>
                     </div>
                 </div>
 
                 <!-- ISTITUTO -->
                 <div class="form-group mt-2">
-                    <label for="formInput_institute" class="required"><?php echo getTranslation($instituteLabel) ?></label>
+                    <label for="formInput_institute"><?php echo getTranslation($instituteLabel) ?></label>
                     <select name="formInput_institute" class="form-select" aria-label="Default select example">
-                        <option selected disabled><?php echo getTranslation($label_unselected) ?></option>
+                        <option value="-1" selected><?php echo getTranslation($label_unselected) ?></option>
                         <?php 
                                 foreach ( ClsIstitutoDB::getList() as $istituto) {
                                      echo "<option value='" . $istituto["id"] . "'>" . $istituto["nome"] . "</option>";
