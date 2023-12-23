@@ -37,5 +37,27 @@
             else
                 throw new Exception("Errore: Id del progetto specificato non valido.");
         }
+
+        public static function insertProject($nome, $descrizione, $immagine_principale){
+            // Messaggio
+            $error = "";
+
+            // Insert the project into DB
+            $params = array(
+                $nome,
+                $descrizione,
+                $immagine_principale
+            );
+
+            $sql = "INSERT INTO progetti (nome, descrizione, immagine_principale) VALUES (?, ?, ?)";
+
+            $insertedRows = executeQuery($sql, $params, $error);
+
+            // Return the result of operation
+            if(is_null($error))
+                return true;
+            else
+                return false;
+        }
     }
 ?>
