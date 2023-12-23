@@ -1,5 +1,5 @@
 <!-- Initial php setup -->
-<?php include $_SERVER['DOCUMENT_ROOT'] . '/inc/Top.php'; ?>
+<?php include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/Top.php'; ?>
 
 <!DOCTYPE html>
 <html lang="it">
