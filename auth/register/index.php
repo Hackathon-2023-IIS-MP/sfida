@@ -2,7 +2,41 @@
 include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/Top.php';
 include_once 'lang.php';
 include_once $root . "/class/DB/ClsProvincia.php";
+include_once $root . "/class/BL/ClsUtente.php";
 include_once $root . "/class/DB/ClsIstituto.php";
+
+//if called with post method
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    //get all inputs
+    $nome = $_POST["formInput_nome"];
+    $cognome = $_POST["formInput_cognome"];
+    $dataNascita = $_POST["formInput_dataNascita"];
+    $genere = $_POST["formInput_genre"];
+    $citta_residenza = $_POST["formInput_citta"];
+    $email = $_POST["formInput_email"];
+    $password = $_POST["formInput_password"];
+    $telefono = $_POST["formInput_telefono"];
+    $idIstituto = $_POST["formInput_institute"];
+    $username = $_POST["formInput_username"];
+
+    //create user
+    $user = clsUtenteBL::createUser($nome, $cognome, $dataNascita, $genere, $citta_residenza, $email, $password, $telefono, $username);
+
+
+    //if user created
+    if ($user != false) {
+
+        //set session variables on cookies
+        setcookie("email", $user->getEmail(), time() + (86400 * 30), "/"); // 86400 = 1 day
+
+        //redirect to home
+        header("Location: /");
+        exit();
+    }
+    else
+        echo "ERROR";
+}
 
 ?>
 <!DOCTYPE html>
@@ -20,7 +54,7 @@ include_once $root . "/class/DB/ClsIstituto.php";
         <div class="container px-5 py-4" style="max-width: 500px; background-color: #e8e8e8; border-radius: 8px;">
             <h2 class="text-center mb-3"><?php echo getTranslation($title) ?></h2>
 
-            <form method="post" name='formRegistrazione' action="register.php" onsubmit="return controllaForm()">
+            <form method="post" name='formRegistrazione' action="index.php" onsubmit="return true">
 
                 <!-- GRUPPO -->
                 <div class="row">
@@ -34,6 +68,11 @@ include_once $root . "/class/DB/ClsIstituto.php";
                         <label for="formInput_cognome" class="required"><?php echo getTranslation($surnameLabel) ?></label>
                         <input type="text" class="form-control" name='formInput_cognome' isValid="false" placeholder="<?php echo getTranslation($surnameLabel) ?>" required>
                     </div>
+                </div>
+
+                <div class="form-group ">
+                    <label for="formInput_username" class="required mt-2">Username</label>
+                    <input type="text" class="form-control" name='formInput_username' isValid="false" placeholder="@username" required>
                 </div>
 
                 <div class="row ">
