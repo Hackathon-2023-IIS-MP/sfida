@@ -7,7 +7,6 @@
                     <a href="https://www.iismarconipieralisi.edu.it/" >IIS Marconi Pieralisi - Jesi</a>
                     <a href="/credits" class="ms-4">Credits</a>
                 </p>
-                <!-- <p> Bartocci Alessandro - De Luca Yuri - Filonzi Jacopo - Piccinini Simone - Sebastianelli Tomas</p> -->
             </div>
         </div>
     </div>

@@ -11,7 +11,7 @@
         $insertError = var_dump($insertResult);
 
         if( is_null($insertError) )
-            header("location: ../../index.php");
+            header("location: ../view/index.php");
         else
             echo "Errore di inserimento";
     }

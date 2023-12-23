@@ -24,6 +24,8 @@ if (isset($_COOKIE["email"])) {
 </head>
 
 <body class="d-flex flex-column vh-100">
+    <!-- Include navbar -->
+    <?php include_once $_SERVER["DOCUMENT_ROOT"] . "/inc/Navbar.php" ?>
 
     <!-- Content div -->
     <div class="mb-auto mt-5 ms-3 ms-lg-5 pt-4">
