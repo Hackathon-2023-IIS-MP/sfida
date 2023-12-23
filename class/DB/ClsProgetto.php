@@ -3,6 +3,8 @@
         // Attributi
         private $_id;
         private $_nome;
+        private $_descrizione;
+        private $_immagine_principale;
 
         // Costruttore
         function __construct(){
@@ -30,6 +32,30 @@
         }
         public function getNome(){
             return $this->_nome;
+        }
+
+        public function setDescrizione($descrizione){
+            $descrizione = trim($descrizione);
+
+            if(!is_null($descrizione))
+                $this->_descrizione = $descrizione;
+            else
+                throw new Exception("La descrizione di un progetto non può essere vuoto.");
+        }
+        public function getDescrizione(){
+            return $this->_descrizione;
+        }
+
+        public function setImmaginePrincipale($immagine_principale){
+            $immagine_principale = trim($immagine_principale);
+
+            if(!is_null($immagine_principale))
+                $this->_immagine_principale = $immagine_principale;
+            else
+                throw new Exception("Il link all'immagine di un progetto non può essere vuoto.");
+        }
+        public function getImmaginePrincipale(){
+            return $this->_immagine_principale;
         }
     }
 ?>
