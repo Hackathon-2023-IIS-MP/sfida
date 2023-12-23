@@ -12,6 +12,7 @@
             $error = "";
 
             $result = executeQuery("SELECT * FROM utenti WHERE email = ?", $params, $error);
+
             
             if ($result == false)
                 return false;
@@ -20,10 +21,10 @@
                 if (count($result) == 1)
                 {
                     // $nome, $cognome, $dataNascita, $genere, $citta_residenza, $email, $password
-                    $user = new clsUtenteDB($result[0]["nome"], $result[0]["cognome"], $result[0]["data_nas"], $result["genere"], $result["citta_residenza"], $result[0]["email"], $result[0]["password"], $result[0]["numero_telefono"], $result[0]["username"]);
+                    $user = new clsUtenteDB($result[0]["nome"], $result[0]["cognome"], $result[0]["data_nas"], $result[0]["genere"], $result[0]["citta_residenza"], $result[0]["email"], $result[0]["password"], $result[0]["numero_telefono"], $result[0]["username"]);
 
-                    if (isset($result[0]["id_istituto"]))
-                        $user->setIdIstituto($result[0]["id_istituto"]);
+                    if (isset($result[0]["istituto_id"]))
+                        $user->setIdIstituto($result[0]["istituto_id"]);
 
                     return $user;
                 }
