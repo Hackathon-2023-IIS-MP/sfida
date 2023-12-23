@@ -78,14 +78,14 @@
         public static function getSubjectsOfProject($id){
             // Query to DB
             $error = "";
-            $paramethers = array(
+            $parameters = array(
                 $id
             );
 
             $sql = "SELECT discipline.nome AS nome FROM riguardare INNER JOIN riguardare.disciplina_id=discipline.id WHERE id = ?";
 
             // Return subjects name
-            $result = executeQuery($sql, $paramethers, $error);
+            $result = executeQuery($sql, $parameters, $error);
         }
     }
 ?>
