@@ -42,9 +42,11 @@
     <?php include $root . '/inc/Head.php'; ?>
 </head>
 <body class="d-flex flex-column vh-100">
+    <!-- Include navbar -->
+    <?php include_once $_SERVER["DOCUMENT_ROOT"] . "/inc/Navbar.php" ?>
 
     <!-- Content div -->
-    <div class="mb-auto mt-5 ms-3 ms-lg-5 pt-4">
+    <div class="my-3 py-3">
 
         <div class="container p-4 mt-5" style="max-width: 500px; background-color: #e8e8e8; border-radius: 8px;">
         <!-- TITOLO -->

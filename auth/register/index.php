@@ -47,9 +47,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body class="d-flex flex-column vh-100">
+    <!-- Include navbar -->
+    <?php include_once $_SERVER["DOCUMENT_ROOT"] . "/inc/Navbar.php" ?>
 
     <!-- Content div -->
-    <div class="mb-auto mt-5 ms-3 ms-lg-5 pt-3">
+    <div class="my-3 py-3">
 
         <div class="container px-5 py-4" style="max-width: 500px; background-color: #e8e8e8; border-radius: 8px;">
             <h2 class="text-center mb-3"><?php echo getTranslation($title) ?></h2>
