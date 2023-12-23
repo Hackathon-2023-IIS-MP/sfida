@@ -43,7 +43,12 @@ include $_SERVER['DOCUMENT_ROOT'] . '/inc/Top.php';
         echo '
         <div class="container my-3 py-3">
             <h1>Bentornato, <b>' . $u->getNome() . '</b>!</h1>
-            <h4 class="mb-5">Ecco alcuni progetti che potrebbero interessarti.</h4>
+            <h4>Ecco alcuni progetti che potrebbero interessarti.</h4>
+
+            <div class="form-floating my-3">
+                <input type="text" id="searchbar" class="form-control rounded-pill" placeholder="Search...">
+                <label for="searchbar">Cerca</label>
+            </div>
 
             <div class="card mb-3 shadow-sm" style="max-width: 480px;">
                 <div class="row g-0">
