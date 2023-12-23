@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql:3306
--- Creato il: Dic 22, 2023 alle 22:07
+-- Creato il: Dic 23, 2023 alle 01:37
 -- Versione del server: 5.7.44
 -- Versione PHP: 8.2.8
 
@@ -136,7 +136,9 @@ CREATE TABLE `partecipare` (
 
 CREATE TABLE `progetti` (
   `id` bigint(20) NOT NULL,
-  `nome` varchar(50) NOT NULL
+  `nome` varchar(50) NOT NULL,
+  `descrizione` text NOT NULL,
+  `immagine_principale` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -258,15 +260,15 @@ ALTER TABLE `lavorare`
 --
 ALTER TABLE `messaggiare`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `progetto_id_4` (`progetto_id`),
-  ADD KEY `utente_email_6` (`utente_email`);
+  ADD KEY `utente_email_6` (`utente_email`),
+  ADD KEY `progetto_id_2` (`progetto_id`);
 
 --
 -- Indici per le tabelle `partecipare`
 --
 ALTER TABLE `partecipare`
   ADD PRIMARY KEY (`utente_email`,`progetto_id`),
-  ADD KEY `progetto_id` (`progetto_id`);
+  ADD KEY `progetto_id_4` (`progetto_id`);
 
 --
 -- Indici per le tabelle `progetti`
@@ -280,7 +282,7 @@ ALTER TABLE `progetti`
 ALTER TABLE `proporre`
   ADD PRIMARY KEY (`utente_email`,`progetto_id`),
   ADD KEY `azienda_id_2` (`azienda_id`),
-  ADD KEY `progetto_id_2` (`progetto_id`);
+  ADD KEY `progetto_id` (`progetto_id`);
 
 --
 -- Indici per le tabelle `province`
@@ -346,6 +348,12 @@ ALTER TABLE `messaggiare`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT per la tabella `progetti`
+--
+ALTER TABLE `progetti`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
 -- Limiti per le tabelle scaricate
 --
 
@@ -374,14 +382,14 @@ ALTER TABLE `lavorare`
 -- Limiti per la tabella `messaggiare`
 --
 ALTER TABLE `messaggiare`
-  ADD CONSTRAINT `progetto_id_4` FOREIGN KEY (`progetto_id`) REFERENCES `progetti` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `progetto_id_2` FOREIGN KEY (`progetto_id`) REFERENCES `progetti` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `utente_email_6` FOREIGN KEY (`utente_email`) REFERENCES `utenti` (`email`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limiti per la tabella `partecipare`
 --
 ALTER TABLE `partecipare`
-  ADD CONSTRAINT `progetto_id` FOREIGN KEY (`progetto_id`) REFERENCES `progetti` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `progetto_id_4` FOREIGN KEY (`progetto_id`) REFERENCES `progetti` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `utente_email_3` FOREIGN KEY (`utente_email`) REFERENCES `utenti` (`email`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
@@ -389,7 +397,7 @@ ALTER TABLE `partecipare`
 --
 ALTER TABLE `proporre`
   ADD CONSTRAINT `azienda_id_2` FOREIGN KEY (`azienda_id`) REFERENCES `aziende` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `progetto_id_2` FOREIGN KEY (`progetto_id`) REFERENCES `progetti` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `progetto_id` FOREIGN KEY (`progetto_id`) REFERENCES `progetti` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `utente_email_4` FOREIGN KEY (`utente_email`) REFERENCES `utenti` (`email`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
