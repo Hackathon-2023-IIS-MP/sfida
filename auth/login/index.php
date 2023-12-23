@@ -1,6 +1,40 @@
 <?php 
     include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/Top.php';
     include_once 'lang.php';
+    include_once $root . "/class/BL/ClsUtente.php";
+
+
+    //if called with post method
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+        //get email and password
+        $email = $_POST["formInput_email"];
+        $password = $_POST["formInput_password"];
+
+        //get user from db
+        $user = clsUtenteBL::getUser($email, $error);
+
+        //if user exists
+        if ($user != false) {
+
+            //if password is correct
+            if ($user->comparePassword($password)) {
+
+                //set session variables on cookies
+                setcookie("email", $user->getEmail(), time() + (86400 * 30), "/"); // 86400 = 1 day
+
+                //redirect to home
+                header("Location: /");
+                exit();
+            }
+            else {
+                $error = $wrongPassword;
+            }
+        }
+        else {
+            $error = $wrongEmail;
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="it">
@@ -17,7 +51,7 @@
         <h2 class="text-center mb-4"> <?php echo getTranslation($title); ?></h2>
 
         <!-- FORM -->
-        <form id="form" method="post" name='formLogin' action="authenticate.php" onsubmit="return controllaForm()">
+        <form id="form" method="post" name='formLogin' action="index.php" onsubmit="return true">
 
             <!-- Email -->
             <div class="form-group mt-3">

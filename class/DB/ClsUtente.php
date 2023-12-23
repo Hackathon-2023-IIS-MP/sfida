@@ -4,11 +4,13 @@ class clsUtenteDB
     //proprietà
     private $nome;
     private $cognome;
+    private $username;
 
     private $dataNascita;
     
     private $genere;
     private $citta_residenza;
+    private $telefono;
 
     private $id_istituto;
 
@@ -18,7 +20,7 @@ class clsUtenteDB
 
 
     //costruttore
-    public function __construct($nome, $cognome, $dataNascita, $genere, $citta_residenza, $email, $password)
+    public function __construct($nome, $cognome, $dataNascita, $genere, $citta_residenza, $email, $password, $telefono, $username)
     {
         $this->nome = $nome;
         $this->cognome = $cognome;
@@ -27,6 +29,8 @@ class clsUtenteDB
         $this->password = $password;
         $this->genere = $genere;
         $this->citta_residenza = $citta_residenza;
+        $this->telefono = $telefono;
+        $this->username = $username;
     }
 
 
@@ -49,6 +53,26 @@ class clsUtenteDB
     public function getCognome()
     {
         return $this->cognome;
+    }
+
+    public function setUsername($username)
+    {
+        $this->username = $username;
+    }
+
+    public function getUsername()
+    {
+        return strtolower($this->username);
+    }
+
+    public function setTelefono($telefono)
+    {
+        $this->telefono = $telefono;
+    }
+
+    public function getTelefono()
+    {
+        return $this->telefono;
     }
 
     public function setDataNascita($dataNascita)
