@@ -5,6 +5,7 @@
     class ClsProgettoBL{
         // Constructor
         function __construct(){
+
         }
 
         // Methods
@@ -54,10 +55,7 @@
             $insertedRows = executeQuery($sql, $params, $error);
 
             // Return the result of operation
-            if(is_null($error))
-                return true;
-            else
-                return false;
+            return $error;
         }
     }
 ?>

@@ -78,6 +78,9 @@
             <li>
                 <a href="/auth/register/">register</a>
             </li>
+            <li>
+                <a href="/project/insert/index.php">insert product</a>
+            </li>
         </ul>
         
     </div>

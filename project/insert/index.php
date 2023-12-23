@@ -2,10 +2,18 @@
     include_once $_SERVER['DOCUMENT_ROOT'] . '/inc/Top.php';
     include_once 'lang.php';
     include_once $_SERVER['DOCUMENT_ROOT'] . "/class/BL/ClsUtente.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/class/BL/ClsProgetto.php";
 
     // Insert the project if the user pressed the insert button
-    if( isset($_SESSION["inserisci"]) ){
-        
+    if( isset($_POST["inserisci"]) ){
+        $insertResult = ClsProgettoBL::insertProject($_POST["name"], $_POST["description"], $_POST["mainImage"]);
+
+        $insertError = var_dump($insertResult);
+
+        if( is_null($insertError) )
+            header("location: ../../index.php");
+        else
+            echo "Errore di inserimento";
     }
 ?>
 <!DOCTYPE html>
@@ -23,20 +31,20 @@
         <div class="container px-5 py-4" style="max-width: 500px; background-color: #e8e8e8; border-radius: 8px;">
             <h2 class="text-center mb-3"><?php echo getTranslation($title) ?></h2>
 
-            <form method="POST" name='formRegistrazione' action="index.php" onsubmit="return true">
+            <form method="post" name='formRegistrazione' action="index.php" onsubmit="return true">
                 <div>
                     <label class="required" name="name" ><?php echo getTranslation($nameLabel) ?></label>
-                    <input type="text" class="form-control" name='formInput_nome' placeholder="<?php echo getTranslation($nameLabel) ?>" isValid="false" required autofocus>
+                    <input type="text" class="form-control" name='name' placeholder="<?php echo getTranslation($nameLabel) ?>" isValid="false" required autofocus>
                 </div>
 
                 <div>
                     <label class="required" name="description"><?php echo getTranslation($descriptionLabel) ?></label>
-                    <textarea id="messaggio" class="form-control" name="formInput_descrizione" rows="4" cols="60" placeholder="<?php echo getTranslation($descriptionLabel) ?>" isValid="false" required autofocus></textarea>
+                    <textarea class="form-control" name="description" rows="4" cols="60" placeholder="<?php echo getTranslation($descriptionLabel) ?>" isValid="false" required autofocus></textarea>
                 </div>
 
                 <div>
                     <label class="required" name="main_image" ><?php echo getTranslation($mainImageLabel) ?></label>
-                    <input type="text" class="form-control" name='formInput_nome' placeholder="<?php echo getTranslation($mainImageLabel) ?>" isValid="false" required autofocus>
+                    <input type="text" class="form-control" name='mainImage' placeholder="<?php echo getTranslation($mainImageLabel) ?>" isValid="false" required autofocus>
                 </div>
 
                 <button type="submit" name="inserisci" class="btn btn-primary mx-auto d-block mt-5 px-5"> <?php echo getTranslation($registerBtn) ?></button>
