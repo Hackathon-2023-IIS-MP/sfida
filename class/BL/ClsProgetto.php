@@ -57,5 +57,35 @@
             // Return the result of operation
             return $error;
         }
+
+        public static function getInterestedPeopleToProject($subjects){
+            // Query to DB
+            $error = "";
+            $sql = "SELECT utenti.nome AS nome, utenti.cognome AS cognome FROM appassionare INNER JOIN utenti.email=appassionare.utente_email WHERE disciplina_id IN (";
+
+            foreach($subjects as $subject){
+                $sql += $subject . ",";
+            }
+
+            $sql = substr($sql, 0, -1) . ")";
+
+            $result = executeQuery($sql, null, $error);
+
+            // Return name and surname of users
+            return $result;
+        }
+
+        public static function getSubjectsOfProject($id){
+            // Query to DB
+            $error = "";
+            $paramethers = array(
+                $id
+            );
+
+            $sql = "SELECT discipline.nome AS nome FROM riguardare INNER JOIN riguardare.disciplina_id=discipline.id WHERE id = ?";
+
+            // Return subjects name
+            $result = executeQuery($sql, $paramethers, $error);
+        }
     }
 ?>
