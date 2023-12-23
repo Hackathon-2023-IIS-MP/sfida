@@ -59,6 +59,57 @@
 
         }
 
+        public static function updateUser($nome, $cognome, $password, $int1, $int2, $int3)
+{
+    // Create an associative array for easy handling of fields
+    $fields = array(
+        'nome' => ucfirst($nome),
+        'cognome' => ucfirst($cognome),
+        'password' => hash("md5", $password),
+        'int1' => $int1,
+        'int2' => $int2,
+        'int3' => $int3
+    );
+
+    // Filter out empty fields
+    $nonEmptyFields = array_filter($fields, function ($value) {
+        return !empty($value);
+    });
+
+    // If there are no non-empty fields, return false or handle accordingly
+    if (empty($nonEmptyFields)) {
+        return false;
+    }
+
+    // Construct the SET part of the query
+    $setClause = implode(', ', array_map(function ($key) {
+        return "$key = ?";
+    }, array_keys($nonEmptyFields)));
+
+    // Construct the parameter array for the query
+    $params = array_values($nonEmptyFields);
+
+    // Add the email as a parameter
+    $params[] = $_COOKIE["email"];
+
+    // Construct the full query
+    $query = "UPDATE utenti SET $setClause WHERE email = ?";
+
+    // Execute the query
+    $error = "";
+    $result = executeQuery($query, $params, $error);
+
+    // Handle the result as needed
+    if ($result === false || strpos($error, "Duplicate entry") !== false) {
+        return false;
+    } else {
+        // Return something meaningful based on your implementation
+        return true;
+    }
+}
+
+
+
     }
 
 ?>

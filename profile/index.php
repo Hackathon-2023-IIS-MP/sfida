@@ -27,69 +27,95 @@ if (isset($_COOKIE["email"])) {
 
     <!-- Content div -->
     <div class="mb-auto mt-5 ms-3 ms-lg-5 pt-4">
+    <form action="/ws/UpdateUser.php" method="POST">
 
-        <div class="container px-5 py-4 col-12" style="background-color: #e8e8e8; border-radius: 8px;">
+        <div class="container px-5 py-4 col-12">
             <h1 class="text-center">Il mio profilo</h1>
 
-            <div class="form-group mt-3 inline-form" style="display: flex; align-items: center; gap: 10px;">
-                <label for="formInput_email ">Nome</label>
-                <input type="email" class="form-control" name='formInput_email' isValid="false" value="<?php echo $user->getNome() ?>"   style="max-width: 300px;">
-            </div>
-            <div class="form-group mt-3 inline-form" style="display: flex; align-items: center; gap: 10px;">
-                <label for="formInput_email ">Cognome</label>
-                <input type="email" class="form-control" name='formInput_email' isValid="false" value="<?php echo $user->getCognome() ?>"   style="max-width: 300px;">
-            </div>
-            <div class="form-group mt-3 inline-form" style="display: flex; align-items: center; gap: 10px;">
-                <label for="formInput_email ">Email</label>
-                <input type="email" class="form-control" name='formInput_email' isValid="false" value="<?php echo $user->getEmail() ?>" disabled  style="max-width: 300px;">
+            <div class="mb-3">
+                <label for="formInput_nome" class="form-label">Nome</label>
+                <input type="text" class="form-control" name='nome' value="<?php echo $user->getNome() ?>">
             </div>
 
-            <div class="form-group mt-3 inline-form" style="display: flex; align-items: center; gap: 10px;">
-                <label for="formInput_email ">Password</label>
-                <input type="password" class="form-control" name='formInput_email' isValid="false" placeholder="password"   style="max-width: 300px;">
-                <input type="submit" class="form-control" name='formInput_email' isValid="false" value="Cambia"   style="max-width: 150px;">
-            </div>
-            
-            <div class="form-group mt-3 inline-form" style="display: flex; align-items: center; gap: 10px;">
-                <label for="formInput_email ">Data di nascita</label>
-                <input type="date" class="form-control" name='formInput_email' isValid="false" value="<?php echo $user->getDataNascita() ?>" disabled  style="max-width: 300px;">
+            <div class="mb-3">
+                <label for="formInput_cognome" class="form-label">Cognome</label>
+                <input type="text" class="form-control" name='cognome' value="<?php echo $user->getCognome() ?>">
             </div>
 
-            <div class="form-group mt-3 inline-form" style="display: flex; align-items: center; gap: 10px;">
-                <label for="formInput_email ">Genere</label>
-                <input type="email" class="form-control" name='formInput_email' isValid="false" value="<?php
-                
-                if ($user->getGenere() == "m") {
-                    echo "Maschio";
-                } else if ($user->getGenere() == "f") {
-                    echo "Femmina";
-                } else {
-                    echo "Non specificato";
-                }
-
-                ?>" disabled  style="max-width: 300px;">
-
+            <div class="mb-3">
+                <label for="formInput_email" class="form-label">Email</label>
+                <input type="email" class="form-control" name='formInput_email' value="<?php echo $user->getEmail() ?>" disabled>
             </div>
 
-            <div class="form-group mt-3 inline-form" style="display: flex; align-items: center; gap: 10px;">
-                <label for="formInput_email ">Numero di telefono</label>
-                <input type="email" class="form-control" name='formInput_email' isValid="false" value="<?php echo $user->getTelefono() ?>" disabled  style="max-width: 300px;">
+            <div class="mb-3">
+                <label for="formInput_password" class="form-label">Password</label>
+                <div class="input-group">
+                    <input type="password" class="form-control" name='password' placeholder="Nuova password">
+                    <button type="submit" class="btn btn-secondary">Cambia</button>
+                </div>
             </div>
 
-            <div class="form-group mt-3 inline-form" style="display: flex; align-items: center; gap: 10px;">
-                <label for="formInput_email ">Città di residenza</label>
-                <input type="email" class="form-control" name='formInput_email' isValid="false" value="<?php echo ClsCittaBL::getById( $user->getCittaResidenza())[0]["nome"] ?>" disabled  style="max-width: 300px;">
+            <div class="mb-3">
+                <label for="formInput_dataNascita" class="form-label">Data di nascita</label>
+                <input type="date" class="form-control" name='formInput_dataNascita'  value="<?php echo $user->getDataNascita() ?>" disabled>
             </div>
 
-            <div class="form-group mt-3 inline-form" style="display: flex; align-items: center; gap: 10px;">
-                <label for="formInput_email ">Istituto</label>
-                <input type="email" class="form-control" name='formInput_email' isValid="false" value="<?php echo clsIstitutoBL::getById($user->getIdIstituto())[0]["nome"] ?>" disabled  style="max-width: 300px;">
+            <div class="mb-3">
+                <label for="formInput_genere" class="form-label">Genere</label>
+                <input type="text" class="form-control" name='formInput_genere' value="<?php
+                    if ($user->getGenere() == "m") {
+                        echo "Maschio";
+                    } else if ($user->getGenere() == "f") {
+                        echo "Femmina";
+                    } else {
+                        echo "Non specificato";
+                    }
+                ?>" disabled>
+            </div>
+
+            <div class="mb-3">
+                <label for="formInput_telefono" class="form-label">Numero di telefono</label>
+                <input type="text" class="form-control" name='formInput_telefono' value="<?php echo $user->getTelefono() ?>" disabled>
+            </div>
+
+            <div class="mb-3">
+                <label for="formInput_cittaResidenza" class="form-label">Città di residenza</label>
+                <input type="text" class="form-control" name='formInput_cittaResidenza' value="<?php echo ClsCittaBL::getById($user->getCittaResidenza())[0]["nome"] ?>" disabled>
+            </div>
+
+            <div class="mb-3">
+                <label for="formInput_istituto" class="form-label">Istituto</label>
+                <input type="text" class="form-control" name='formInput_istituto' value="<?php echo clsIstitutoBL::getById($user->getIdIstituto())[0]["nome"] ?>" disabled>
+            </div>
+
+            <div class="mb-3">
+                <label for="formInput_interesse1" class="form-label">Interesse 1</label>
+                <input type="text" class="form-control" name='int1'>
+            </div>
+
+            <div class="mb-3">
+                <label for="formInput_interesse2" class="form-label">Interesse 2</label>
+                <input type="text" class="form-control" name='int2'>
+            </div>
+
+            <div class="mb-3">
+                <label for="formInput_interesse3" class="form-label">Interesse 3</label>
+                <input type="text" class="form-control" name='int3'>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
         </div>
+    </form>
+</div>
 
+
+        </form>
     </div>
 
     <!-- Include footer -->
     <?php include_once $root . "/inc/Footer.php" ?>
 </body>
+
+
 
 </html>

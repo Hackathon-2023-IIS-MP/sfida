@@ -5,6 +5,11 @@
     $lang = 'en'; //Default language
 
 
+
+
+    
+
+
     //Acepted languages
     $acceptedLangs = array('en', 'it');
 
