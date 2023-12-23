@@ -6,12 +6,19 @@
     require_once $root . "/class/DB/ClsProgetto.php";
     require_once $root . "/class/BL/ClsProgetto.php";
     
-    // Get the project
-    if( isset($_SESSION["projectToShow"]) )
+    // Verify if there's a project to show
+    if( isset($_SESSION["projectToShow"]) ){
+        // Get the project
         $project = ClsProgettoBL::getProjectById( $_SESSION["projectToShow"] );
+
+        // Get the subjects of the project
+        $subjectsOfProject = ClsProgettoBL::getSubjectsOfProject( $_SESSION["projectToShow"] );
+
+        // Get people potentially interested in the project
+        ClsProgettoBL::getInterestedPeopleToProject( $subjectsOfProject );
+    }
     else
         die("Errore: Il progetto richiesto non esiste.");
-    
 ?>
 
 <!DOCTYPE html>
